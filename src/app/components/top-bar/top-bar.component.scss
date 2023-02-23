@@ -1,0 +1,26 @@
+.toolbar {
+  padding: 10px;
+  margin: 0px 10px;
+
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+
+  border-bottom: 1px solid grey;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 20px;
+  color: #1976d2;
+}
+
+.blue-circle {
+  height: 20px;
+  width: 20px;
+  background-color: #1976d2;
+  border-radius: 50%;
+}

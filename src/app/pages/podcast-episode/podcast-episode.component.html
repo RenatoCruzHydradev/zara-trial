@@ -1,0 +1,13 @@
+<div class="main-container">
+  <div class="title">
+    {{ episode?.collectionName }}
+  </div>
+  <div class="description">
+    {{ episode?.description }}
+  </div>
+  <div class="track">
+    <video controls name="media">
+      <source [src]="episode?.episodeUrl" type="audio/mpeg" />
+    </video>
+  </div>
+</div>

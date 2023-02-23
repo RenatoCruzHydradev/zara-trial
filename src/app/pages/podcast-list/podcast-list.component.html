@@ -1,0 +1,15 @@
+<div class="main-container">
+  <div class="filter">
+    <div class="counter">
+      {{ filteredPodcasts.length }}
+    </div>
+    <div class="filter-container">
+      <input type="text" [(ngModel)]="formValue" (input)="filterChange()">
+    </div>
+  </div>
+  <div class="podcast-list">
+    <div class="podcast" *ngFor="let podcast of filteredPodcasts">
+      <app-podcast-box [podcast]="podcast"></app-podcast-box>
+    </div>
+  </div>
+</div>

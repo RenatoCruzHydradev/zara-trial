@@ -1,0 +1,11 @@
+<div class="card" (click)="savePodcast()" [routerLink]="['/podcast/' + podcast.id.attributes['im:id']]" >
+  <div class="card_img">
+    <img [src]="podcast['im:image'][2].label" />
+  </div>
+  <div class="card_info">
+      <div class="name">
+        {{ podcast["im:name"].label }}
+      </div>
+      <div class="author">Author: {{ podcast["im:artist"].label }}</div>
+  </div>
+</div>

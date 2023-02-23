@@ -1,0 +1,26 @@
+<div class="main-container">
+    <div class="card">
+        <div class="image">
+            <img [src]="podcast?.['im:image'][2].label" />
+        </div>
+        <div class="title with-border">
+            <b>
+                {{ podcast?.["im:name"].label }}
+            </b>
+            <i>
+                {{ podcast?.["im:artist"].label }}
+            </i>
+        </div>
+        <div class="description with-border">
+            <b>
+                Description
+            </b>
+            <i class="description-text">
+                {{ podcast?.["summary"].label }}
+            </i>
+        </div>
+    </div>
+    <div class="router">
+        <router-outlet></router-outlet>
+    </div>
+</div>
