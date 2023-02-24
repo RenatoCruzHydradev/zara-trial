@@ -114,4 +114,19 @@ describe('PodcastBoxComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should contain image', () => {
+   const ele = fixture.debugElement.nativeElement.querySelectorAll('img');
+   expect(ele[0]['src']).toContain(randomPodcast['im:image'][2].label);
+  });
+
+  it('should contain name', () => {
+   const ele = fixture.debugElement.nativeElement.querySelector('.name');
+   expect(ele.textContent).toContain(randomPodcast['im:name'].label);
+  });
+
+  it('should contain author', () => {
+   const ele = fixture.debugElement.nativeElement.querySelector('.author');
+   expect(ele.textContent).toContain(randomPodcast['im:artist'].label);
+  });
 });
