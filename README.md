@@ -28,4 +28,10 @@ Run
 ```bash
 ng test
 ```
-to run the implemented tests
+to run the implemented unit tests
+
+Run 
+```bash
+ng e2e
+```
+to run the implemented e2e tests
