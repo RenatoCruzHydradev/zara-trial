@@ -35,7 +35,8 @@ export class PodcastDetailsComponent implements OnInit, OnDestroy {
   private getPodcastEpisodes() {
     this.podcastSub = this.service
       .getPodcastsDetails(this.podcastId)
-      .subscribe((res) => {
+      .subscribe((res: any) => {
+        res.results.shift()
         this.podcastEpisodes = res;
       });
   }
