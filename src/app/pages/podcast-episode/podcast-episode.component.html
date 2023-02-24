@@ -5,7 +5,7 @@
   <div class="description">
     {{ episode?.description }}
   </div>
-  <div class="track">
+  <div *ngIf="episode" class="track">
     <video controls name="media">
       <source [src]="episode?.episodeUrl" type="audio/mpeg" />
     </video>
