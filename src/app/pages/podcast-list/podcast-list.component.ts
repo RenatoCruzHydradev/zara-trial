@@ -26,7 +26,7 @@ export class PodcastListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.podcastSub.unsubscribe();
+    this.podcastSub?.unsubscribe();
   }
 
   filterChange() {

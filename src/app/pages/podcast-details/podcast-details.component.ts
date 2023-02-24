@@ -11,6 +11,8 @@ import { StateService } from 'src/app/services/state.service';
 })
 export class PodcastDetailsComponent implements OnInit, OnDestroy {
   podcastSub: Subscription;
+  routeSub: Subscription;
+
   podcastId: string;
   podcastEpisodes: any;
   podcast: any;
@@ -22,14 +24,15 @@ export class PodcastDetailsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: any) => {
+    this.routeSub = this.route.params.subscribe((params: any) => {
       this.podcastId = params.podcastId;
       this.getPodcastEpisodes();
     });
   }
 
   ngOnDestroy(): void {
-    this.podcastSub.unsubscribe();
+    this.podcastSub?.unsubscribe();
+    this.routeSub?.unsubscribe();
   }
 
   private getPodcastEpisodes() {

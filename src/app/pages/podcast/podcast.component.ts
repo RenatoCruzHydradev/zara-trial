@@ -11,6 +11,8 @@ import * as xml2js from 'xml2js';
 })
 export class PodcastComponent implements OnInit, OnDestroy {
   podcastSub: Subscription;
+  metadataSub: Subscription;
+  routeSub: Subscription | undefined;
   podcastId: string;
   podcastDetails: any;
   podcastMetadata: any;
@@ -19,17 +21,20 @@ export class PodcastComponent implements OnInit, OnDestroy {
   constructor(
     private service: PodcastService,
     private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.route.firstChild?.params.subscribe((params: any) => {
+    this.routeSub = this.route.firstChild?.params.subscribe((params: any) => {
       this.podcastId = params.podcastId;
       this.getPodcastDetails();
     });
   }
 
   ngOnDestroy(): void {
-    this.podcastSub.unsubscribe();
+    this.podcastSub?.unsubscribe();
+    this.metadataSub?.unsubscribe();
+    this.routeSub?.unsubscribe();
   }
 
   private getPodcastDetails() {
@@ -37,12 +42,16 @@ export class PodcastComponent implements OnInit, OnDestroy {
       .getPodcastsDetails(this.podcastId)
       .subscribe((res) => {
         this.podcastDetails = res.results[0];
+        if (!this.podcastDetails) {
+          return this.router.navigate(['/404']);
+        }
         this.getPodcastMetaData();
+        return;
       });
   }
 
   getPodcastMetaData() {
-    this.service
+    this.metadataSub = this.service
       .getPodcastsMetaData(this.podcastDetails.feedUrl)
       .subscribe((res) => {
         const parser = new xml2js.Parser();

@@ -9,6 +9,7 @@ import { PodcastListComponent } from './podcast-list/podcast-list.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PodcastDetailsComponent } from './podcast-details/podcast-details.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { PodcastDetailsComponent } from './podcast-details/podcast-details.compo
     PodcastListComponent,
     PodcastComponent,
     PodcastEpisodeComponent,
+    NotFoundComponent,
   ],
   imports: [
     CommonModule,
@@ -30,6 +32,7 @@ import { PodcastDetailsComponent } from './podcast-details/podcast-details.compo
     PodcastDetailsComponent,
     PodcastComponent,
     PodcastEpisodeComponent,
+    NotFoundComponent
   ],
   providers: [],
   bootstrap: [],

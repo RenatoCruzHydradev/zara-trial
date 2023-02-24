@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { PodcastDetailsComponent } from './pages/podcast-details/podcast-details.component';
 import { PodcastEpisodeComponent } from './pages/podcast-episode/podcast-episode.component';
 import { PodcastListComponent } from './pages/podcast-list/podcast-list.component';
@@ -25,6 +26,8 @@ const routes: Routes = [
       { path: '**', redirectTo: '/'},
     ],
   },
+  {path: '404', component: NotFoundComponent},
+  { path: '**', redirectTo: '/'}
 ];
 
 @NgModule({
