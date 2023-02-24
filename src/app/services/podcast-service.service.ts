@@ -18,7 +18,17 @@ export class PodcastService {
 
   getPodcastsDetails(id: string | number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/lookup/json`, {
+      params: { id: id, entity: 'podcast' },
+    });
+  }
+
+  getPodcastsEpisodes(id: string | number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/lookup/json`, {
       params: { id: id, entity: 'podcastEpisode' },
     });
+  }
+
+  getPodcastsMetaData(feedUrl: string): Observable<any> {
+    return this.http.get(feedUrl, {responseType: "text"});
   }
 }

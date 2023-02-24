@@ -1,14 +1,14 @@
 <div class="main-container">
-    <div class="card">
+    <div *ngIf="podcastMetadata" class="card">
         <div class="image">
-            <img [src]="podcast?.['im:image'][2].label" />
+            <img [src]="podcastMetadata?.image" width="200px" height="200px" />
         </div>
         <div class="title with-border">
             <b>
-                {{ podcast?.["im:name"].label }}
+                {{ podcastMetadata?.name }}
             </b>
             <i>
-                {{ podcast?.["im:artist"].label }}
+                {{ podcastMetadata?.artist }}
             </i>
         </div>
         <div class="description with-border">
@@ -16,7 +16,7 @@
                 Description
             </b>
             <i class="description-text">
-                {{ podcast?.["summary"].label }}
+                {{ podcastMetadata?.summary }}
             </i>
         </div>
     </div>

@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { StateService } from 'src/app/services/state.service';
+import { Subscription } from 'rxjs';
+import { PodcastService } from 'src/app/services/podcast-service.service';
+import * as xml2js from 'xml2js';
 
 @Component({
   selector: 'app-podcast',
@@ -8,14 +10,15 @@ import { StateService } from 'src/app/services/state.service';
   styleUrls: ['./podcast.component.scss'],
 })
 export class PodcastComponent implements OnInit, OnDestroy {
+  podcastSub: Subscription;
   podcastId: string;
   podcastDetails: any;
+  podcastMetadata: any;
   podcast: any;
 
   constructor(
-    private state: StateService,
+    private service: PodcastService,
     private route: ActivatedRoute,
-    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -26,12 +29,32 @@ export class PodcastComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.podcastSub.unsubscribe();
   }
 
   private getPodcastDetails() {
-    this.podcast = this.state.getPodcast()
-    if (!this.podcast) {
-      this.router.navigate(["/"])
-    }
+    this.podcastSub = this.service
+      .getPodcastsDetails(this.podcastId)
+      .subscribe((res) => {
+        this.podcastDetails = res.results[0];
+        this.getPodcastMetaData();
+      });
+  }
+
+  getPodcastMetaData() {
+    this.service
+      .getPodcastsMetaData(this.podcastDetails.feedUrl)
+      .subscribe((res) => {
+        const parser = new xml2js.Parser();
+        parser.parseStringPromise(res).then((res) => {
+          const data = res.rss.channel[0];
+          this.podcastMetadata = {
+            image: data.image[0].url[0],
+            name: data.title[0],
+            artist: data['itunes:author'][0],
+            summary: data.description[0],
+          };
+        });
+      });
   }
 }
