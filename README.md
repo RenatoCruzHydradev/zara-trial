@@ -4,6 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Requirements
 Angular 15+
+
 Node 18+
 
 ## Install Packages
@@ -21,3 +22,10 @@ ng serve
 ```
 for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
+## Testing
+
+Run 
+```bash
+ng test
+```
+to run the implemented tests
