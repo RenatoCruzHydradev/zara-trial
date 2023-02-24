@@ -1,5 +1,8 @@
 import { TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
+import { ComponentsModule } from './components/components.module';
+import { PagesModule } from './pages/pages.module';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -7,6 +10,10 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
+      imports: [
+        PagesModule,
+        ComponentsModule,
+      ]
     }).compileComponents();
   });
 
@@ -16,16 +23,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'angular-tour-of-heroes'`, () => {
+  it(`should have as app-dashboard`, () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('angular-tour-of-heroes');
+    const appDashboard = fixture.debugElement.query(By.css('app-dashboard'));
+    expect(appDashboard).toBeTruthy();
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('angular-tour-of-heroes app is running!');
-  });
 });
