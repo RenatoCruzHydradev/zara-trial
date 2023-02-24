@@ -10,20 +10,12 @@ describe('DashboardComponent', () => {
 
   class ActivatedRouteMock {}
 
-
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DashboardComponent ],
-      imports: [
-        ComponentsModule,
-        RouterModule
-      ],
-      providers: [
-        {provide: ActivatedRoute, useClass: ActivatedRouteMock}
-      ]
-    })
-    .compileComponents();
+      declarations: [DashboardComponent],
+      imports: [ComponentsModule, RouterModule],
+      providers: [{ provide: ActivatedRoute, useClass: ActivatedRouteMock }],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;

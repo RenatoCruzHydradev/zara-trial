@@ -20,4 +20,9 @@ describe('NotFoundComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have 404 text', () => {
+    const h1 = fixture.debugElement.nativeElement.querySelector('h1');
+    expect(h1.textContent).toContain("Error 404");
+  });
 });
