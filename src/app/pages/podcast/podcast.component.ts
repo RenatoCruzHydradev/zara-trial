@@ -38,12 +38,10 @@ export class PodcastComponent implements OnInit, OnDestroy {
       .getPodcastsDetails(this.podcastId)
       .subscribe((res) => {
         this.podcastDetails = res;
-        console.log(this.podcastDetails);
         this.podcast = this.state.getPodcast()
         if (!this.podcast) {
           this.router.navigate(["/"])
         }
-        console.log(this.podcast)
       });
   }
 }

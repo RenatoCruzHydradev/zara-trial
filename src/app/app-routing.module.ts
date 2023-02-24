@@ -14,21 +14,15 @@ const routes: Routes = [
       {
         path: ':podcastId',
         component: PodcastDetailsComponent,
-        children: [
-          {
-            path: 'episode',
-            children: [
-              {
-                path: ':episodeId',
-                component: PodcastEpisodeComponent,
-                pathMatch: 'full',
-              },
-              { path: '', redirectTo: '/', pathMatch: 'full' }
-            ],
-          },
-        ]
+        pathMatch: 'full',
+      },
+      {
+        path: ':podcastId/episode/:episodeId',
+        component: PodcastEpisodeComponent,
+        pathMatch: 'full',
       },
       { path: '', redirectTo: '/', pathMatch: 'full' },
+      { path: '**', redirectTo: '/'},
     ],
   },
 ];

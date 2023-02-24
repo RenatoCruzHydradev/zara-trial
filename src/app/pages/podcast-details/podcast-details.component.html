@@ -1,4 +1,4 @@
-<div *ngIf="!selectedEpisode" class="main-container">
+<div class="main-container">
   <div class="title">Episodes: {{ podcastEpisodes?.results.length }}</div>
   <div class="table">
     <table class="fl-table">
@@ -18,11 +18,11 @@
             </a>
           </td>
           <td>{{ episode.releaseDate | date : "d/MM/yyyy" }}</td>
-          <td>{{ episode.trackTimeMillis | date : "mm:ss" }}</td>
+          <td>{{ episode.trackTimeMillis | date : "HH:mm:ss" : "UTC" }}</td>
         </tr>
       </tbody>
     </table>
   </div>
 </div>
 
-<router-outlet *ngIf="selectedEpisode"></router-outlet>
+<router-outlet></router-outlet>

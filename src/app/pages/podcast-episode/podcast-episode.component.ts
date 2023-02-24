@@ -15,7 +15,6 @@ export class PodcastEpisodeComponent implements OnDestroy {
 
   ngOnInit() {
     this.episode = this.state.getEpisode();
-    console.log("episode - ", this.episode)
   }
 
   ngOnDestroy(): void {

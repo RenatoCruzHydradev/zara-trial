@@ -21,10 +21,4 @@ export class PodcastService {
       params: { id: id, entity: 'podcastEpisode' },
     });
   }
-
-  getPodcastsEpisodes(id: string | number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/lookup/json`, {
-      params: { id: id, entity: 'podcastEpisode' },
-    });
-  }
 }
