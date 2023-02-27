@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { By } from '@angular/platform-browser';
 
 import { DashboardComponent } from './dashboard.component';
 
@@ -24,5 +25,11 @@ describe('DashboardComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it(`should have top-bar`, () => {
+    const fixture = TestBed.createComponent(DashboardComponent);
+    const appTopBar = fixture.debugElement.query(By.css('app-top-bar'));
+    expect(appTopBar).toBeTruthy();
   });
 });

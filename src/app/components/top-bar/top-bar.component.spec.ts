@@ -29,4 +29,12 @@ describe('TopBarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have navigation marker', () => {
+    component.isNavigating = true;
+    fixture.detectChanges();
+    const marker = fixture.debugElement.nativeElement.querySelectorAll('.blue-circle');
+
+    expect(marker).toBeTruthy();
+  });
 });
