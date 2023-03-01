@@ -1,6 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { FetchingService } from 'src/app/services/fetching.service';
 import { PodcastService } from 'src/app/services/podcast-service.service';
 import { StateService } from 'src/app/services/state.service';
 
@@ -20,7 +21,8 @@ export class PodcastEpisodeComponent implements OnDestroy {
     private state: StateService,
     private service: PodcastService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private fetchingService: FetchingService
   ) {}
 
   ngOnInit() {
@@ -35,9 +37,11 @@ export class PodcastEpisodeComponent implements OnDestroy {
   }
 
   private getPodcastEpisodes() {
+    this.fetchingService.changeIsFetching(true);
     this.podcastSub = this.service
       .getPodcastsEpisodes(this.podcastId)
       .subscribe((res: any) => {
+        this.fetchingService.changeIsFetching(false);
         this.episode = res.results.find((ep: any) => {
           return ep.trackId == this.episodeId;
         });

@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { FetchingService } from 'src/app/services/fetching.service';
 import { PodcastService } from 'src/app/services/podcast-service.service';
 import * as xml2js from 'xml2js';
 
@@ -21,7 +22,8 @@ export class PodcastComponent implements OnInit, OnDestroy {
   constructor(
     private service: PodcastService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private fetchingService: FetchingService
   ) {}
 
   ngOnInit(): void {
@@ -51,6 +53,7 @@ export class PodcastComponent implements OnInit, OnDestroy {
   }
 
   getPodcastMetaData() {
+    this.fetchingService.changeIsFetching(true);
     this.metadataSub = this.service
       .getPodcastsMetaData(this.podcastDetails.feedUrl)
       .subscribe((res) => {
@@ -63,6 +66,7 @@ export class PodcastComponent implements OnInit, OnDestroy {
             artist: data['itunes:author'][0],
             summary: data.description[0],
           };
+          this.fetchingService.changeIsFetching(false);
         });
       });
   }

@@ -1,6 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { FetchingService } from 'src/app/services/fetching.service';
 
 @Component({
   selector: 'app-top-bar',
@@ -9,21 +10,19 @@ import { Subscription } from 'rxjs';
 })
 export class TopBarComponent implements OnDestroy {
   isNavigating: boolean = false;
-  routerSubscription: Subscription;
+  fetchingSubscription: Subscription;
 
-  constructor(private router: Router) {
-    this.detectUrlChanges();
+  constructor(private router: Router, private fetchingService: FetchingService) {
+    this.detectFetching();
   }
 
-  private detectUrlChanges() {
-    this.routerSubscription = this.router.events.subscribe((val) => {
-      if (val instanceof NavigationStart) {
-        this.isNavigating = val.url !== '/';
-      }
-    });
+  private detectFetching() {
+    this.fetchingSubscription = this.fetchingService.isFetching.subscribe(result => {
+      this.isNavigating = result
+    })
   }
 
   ngOnDestroy(): void {
-    this.routerSubscription?.unsubscribe();
+    this.fetchingSubscription?.unsubscribe();
   }
 }

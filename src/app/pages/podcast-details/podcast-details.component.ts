@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { FetchingService } from 'src/app/services/fetching.service';
 import { PodcastService } from 'src/app/services/podcast-service.service';
 import { StateService } from 'src/app/services/state.service';
 
@@ -20,7 +21,8 @@ export class PodcastDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private service: PodcastService,
     private route: ActivatedRoute,
-    private state: StateService
+    private state: StateService,
+    private fetchingService: FetchingService
   ) {}
 
   ngOnInit(): void {
@@ -36,11 +38,14 @@ export class PodcastDetailsComponent implements OnInit, OnDestroy {
   }
 
   private getPodcastEpisodes() {
+    this.fetchingService.changeIsFetching(true);
+
     this.podcastSub = this.service
       .getPodcastsEpisodes(this.podcastId)
       .subscribe((res: any) => {
         res.results.shift()
         this.podcastEpisodes = res;
+        this.fetchingService.changeIsFetching(false);
       });
   }
 
