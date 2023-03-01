@@ -20,12 +20,38 @@ export class PodcastListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    if (this.shouldFetchNewList()) {
+      this.getPodcastList();
+    } else {
+      this.podcasts = JSON.parse(localStorage.getItem("podcasts") as any)
+      this.filteredPodcasts = JSON.parse(localStorage.getItem("podcasts") as any)
+    }
+  }
+
+  getPodcastList() {
     this.fetchingService.changeIsFetching(true);
     this.podcastSub = this.service.getPodcastsList().subscribe((res) => {
       this.podcasts = res.feed.entry;
       this.filteredPodcasts = res.feed.entry;
+      localStorage.setItem("lastFetch", new Date().toJSON())
+      localStorage.setItem("podcasts", JSON.stringify(this.podcasts))
       this.fetchingService.changeIsFetching(false);
     });
+  }
+
+  shouldFetchNewList(): boolean {
+    if (!localStorage.getItem("lastFetch") || !localStorage.getItem("podcasts")) {
+      return true
+    }
+
+    const lastFetch = localStorage.getItem("lastFetch")
+    if (lastFetch) {
+      const oneDayInMs = 24 * 60 * 60 * 1000; // One day in milliseconds
+      const now = new Date(); // Current date and time
+      return now.getTime() - new Date(lastFetch).getTime() >= oneDayInMs;
+    }
+
+    return true
   }
 
   ngOnDestroy(): void {
