@@ -12,14 +12,18 @@ export class TopBarComponent implements OnDestroy {
   isNavigating: boolean = false;
   fetchingSubscription: Subscription;
 
-  constructor(private router: Router, private fetchingService: FetchingService) {
+  constructor(
+    private fetchingService: FetchingService
+  ) {
     this.detectFetching();
   }
 
   private detectFetching() {
-    this.fetchingSubscription = this.fetchingService.isFetching.subscribe(result => {
-      this.isNavigating = result
-    })
+    this.fetchingSubscription = this.fetchingService.isFetching.subscribe(
+      (result) => {
+        this.isNavigating = result;
+      }
+    );
   }
 
   ngOnDestroy(): void {
